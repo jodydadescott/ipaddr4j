@@ -16,6 +16,12 @@ public class TestIpAddr {
 		IpAddr testIpFromInt = IpAddr.valueOf(testIp.getIntValue());
 		assert testIpFromInt == testIp;
 
+		Port port = Port.valueOf("9000");
+		assert port.getIntValue() == 9000;
+
+		IpAddrPort ipAddrPort = IpAddrPort.valueOf("172.16.0.1:9001");
+		assert ipAddrPort.getPort().getIntValue() == 9001;
+
 	}
 
 }
