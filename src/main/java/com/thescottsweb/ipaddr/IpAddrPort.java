@@ -6,22 +6,22 @@ public interface IpAddrPort {
 
 	public static final String IP_PORT_DELIMITER = ":";
 
-	public static IpAddrPort valueOf(String arg0) {
+	public static IpAddrPort valueOf(String ipAddrPort) {
 
-		if (arg0 == null) {
+		if (ipAddrPort == null) {
 			return null;
 		}
 
-		if (!arg0.contains(IP_PORT_DELIMITER)) {
-			throw new AssertionError("Expecting delimiter " + IP_PORT_DELIMITER);
+		IpAddrPort result = null;
+
+		if (ipAddrPort.contains(IP_PORT_DELIMITER)) {
+			String split[] = ipAddrPort.split(IP_PORT_DELIMITER);
+			result = IpAddrPortImpl.valueOf(IpAddr.valueOf(split[0]), Port.valueOf(split[1]));
+		} else {
+			result = IpAddrPortImpl.valueOf(IpAddr.valueOf(ipAddrPort), Port.ZERO);
 		}
 
-		String split[] = arg0.split(IP_PORT_DELIMITER);
-
-		IpAddr ipAddr = IpAddr.valueOf(split[0]);
-		Port port = Port.valueOf(split[1]);
-
-		return IpAddrPortImpl.valueOf(ipAddr, port);
+		return result;
 	}
 
 	IpAddr getIpAddr();

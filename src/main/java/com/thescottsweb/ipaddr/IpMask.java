@@ -42,33 +42,33 @@ public interface IpMask extends IpAddr {
 	public static final IpMask LOOP = S32;
 	public static final IpMask WIRE = S31;
 
-	public static boolean validate(String arg0) {
-		assert arg0 != null;
+	public static boolean validate(String ipMask) {
+		assert ipMask != null;
 
 		try {
-			IpMask.valueOf(arg0);
+			IpMask.valueOf(ipMask);
 		} catch (NumberFormatException e) {
 			return false;
 		}
 		return true;
 	}
 
-	public static IpMask valueOf(String arg0) {
+	public static IpMask valueOf(String ipMask) {
 
 		// If the string arg has the character "." then we treat the string as
 		// an IP. Else we treat it as short notation.
 
-		if (arg0.contains(".")) {
+		if (ipMask.contains(".")) {
 
-			String[] octets = arg0.split("\\.");
+			String[] octets = ipMask.split("\\.");
 
 			if (octets.length != 4)
 				throw new NumberFormatException(
 						String.format("Expecting four octets seperated by periods, found %s", octets.length));
 
-			return valueOf(IpAddr.valueOf(arg0).getIntValue());
+			return valueOf(IpAddr.valueOf(ipMask).getIntValue());
 		} else {
-			return valueOf(Integer.valueOf(arg0));
+			return valueOf(Integer.valueOf(ipMask));
 		}
 	}
 
@@ -77,8 +77,8 @@ public interface IpMask extends IpAddr {
 		return valueOf(ipMask.getIntValue());
 	}
 
-	public static IpMask valueOf(int intValue) {
-		return IpMaskImpl.valueOf(intValue);
+	public static IpMask valueOf(int ipMask) {
+		return IpMaskImpl.valueOf(ipMask);
 	}
 
 	public default int toSlash() {

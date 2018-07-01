@@ -12,10 +12,10 @@ public interface IpAddr extends Comparable<IpAddr> {
 		return IpAddrImpl.valueOf(value);
 	}
 
-	public static boolean validate(String arg0) {
+	public static boolean validate(String ipAddr) {
 
 		try {
-			IpAddr.valueOf(arg0);
+			IpAddr.valueOf(ipAddr);
 		} catch (NumberFormatException e) {
 			return false;
 		}
@@ -23,12 +23,12 @@ public interface IpAddr extends Comparable<IpAddr> {
 		return true;
 	}
 
-	public static IpAddr valueOf(String arg0) {
+	public static IpAddr valueOf(String ipAddr) {
 
-		if (arg0 == null)
+		if (ipAddr == null)
 			return null;
 
-		String[] octets = arg0.split("\\.");
+		String[] octets = ipAddr.split("\\.");
 
 		if (octets.length != 4)
 			throw new NumberFormatException("Expecting four octets seperated by periods, found " + octets.length);
@@ -39,7 +39,7 @@ public interface IpAddr extends Comparable<IpAddr> {
 
 			if (octet > 255 || octet < 0) {
 				throw new NumberFormatException(
-						"IP octet " + octet + " in address " + arg0 + " is NOT valid (expected value is 0 to 255)");
+						"IP octet " + octet + " in address " + ipAddr + " is NOT valid (expected value is 0 to 255)");
 			}
 
 			result |= (octet) << (i * 8);

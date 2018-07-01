@@ -6,14 +6,16 @@ public interface Port extends Comparable<Port> {
 
 	// ============================================================================================
 
+	public static final Port ZERO = PortImpl.valueOf(0);
+
 	public static Port valueOf(int value) {
 		return PortImpl.valueOf(value);
 	}
 
-	public static boolean validate(String arg0) {
+	public static boolean validate(String port) {
 
 		try {
-			Port.valueOf(arg0);
+			Port.valueOf(port);
 		} catch (AssertionError e) {
 			return false;
 		}
@@ -21,17 +23,17 @@ public interface Port extends Comparable<Port> {
 		return true;
 	}
 
-	public static Port valueOf(String arg0) {
+	public static Port valueOf(String port) {
 
-		if (arg0 == null)
+		if (port == null)
 			return null;
 
 		int result = 0;
 
 		try {
-			result = Integer.valueOf(arg0);
+			result = Integer.valueOf(port);
 		} catch (NumberFormatException e) {
-			throw new AssertionError("The string " + arg0 + " is not a valid port");
+			throw new AssertionError("The string " + port + " is not a valid port");
 		}
 
 		if (result < 0 || result > 65535) {
@@ -90,6 +92,14 @@ public interface Port extends Comparable<Port> {
 		if (getIntValue() != other.getIntValue())
 			return false;
 		return true;
+	}
+
+	public default boolean isZero() {
+		if (getIntValue() == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public default String defaultToString() {

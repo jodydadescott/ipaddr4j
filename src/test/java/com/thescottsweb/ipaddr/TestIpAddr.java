@@ -21,6 +21,11 @@ public class TestIpAddr {
 
 		IpAddrPort ipAddrPort = IpAddrPort.valueOf("172.16.0.1:9001");
 		assert ipAddrPort.getPort().getIntValue() == 9001;
+		assert !ipAddrPort.getPort().isZero();
+
+		IpAddrPort ipAddrPortZero = IpAddrPort.valueOf("172.16.0.1");
+		assert ipAddrPortZero.getPort().getIntValue() == 0;
+		assert ipAddrPortZero.getPort().isZero();
 
 	}
 
