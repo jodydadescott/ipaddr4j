@@ -6,6 +6,23 @@ public interface IpAddrPort {
 
 	public static final String IP_PORT_DELIMITER = ":";
 
+	public static IpAddrPort valueOf(IpAddr ipAddr, Port port) {
+
+		if (ipAddr == null && port == null) {
+			return null;
+
+		}
+		if (ipAddr == null) {
+			throw new NullPointerException("ipAddr is null but port is not");
+		}
+
+		if (port == null) {
+			throw new NullPointerException("port is null but ipAddr is not");
+		}
+
+		return IpAddrPortImpl.valueOf(ipAddr, port);
+	}
+
 	public static IpAddrPort valueOf(String ipAddrPort) {
 
 		if (ipAddrPort == null) {
